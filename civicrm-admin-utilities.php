@@ -19,7 +19,7 @@ define( 'CIVICRM_ADMIN_UTILITIES_VERSION', '0.6.7' );
 
 // Trigger logging of 'civicrm_pre' and 'civicrm_post'.
 if ( ! defined( 'CIVICRM_ADMIN_UTILITIES_DEBUG' ) ) {
-	define( 'CIVICRM_ADMIN_UTILITIES_DEBUG', false );
+	define( 'CIVICRM_ADMIN_UTILITIES_DEBUG', FALSE );
 }
 
 // Store reference to this file.
@@ -99,7 +99,7 @@ class CiviCRM_Admin_Utilities {
 
 		// Only do this once.
 		static $done;
-		if ( isset( $done ) AND $done === true ) return;
+		if ( isset( $done ) AND $done === TRUE ) return;
 
 		// Enable translation.
 		$this->enable_translation();
@@ -124,7 +124,7 @@ class CiviCRM_Admin_Utilities {
 		do_action( 'civicrm_admin_utilities_loaded' );
 
 		// We're done.
-		$done = true;
+		$done = TRUE;
 
 	}
 
@@ -194,7 +194,7 @@ class CiviCRM_Admin_Utilities {
 		// Enable translation
 		load_plugin_textdomain(
 			'civicrm-admin-utilities', // Unique name.
-			false, // Deprecated argument.
+			FALSE, // Deprecated argument.
 			dirname( plugin_basename( __FILE__ ) ) . '/languages/' // Relative path to files.
 		);
 
@@ -226,7 +226,7 @@ class CiviCRM_Admin_Utilities {
 
 		// If not multisite, it cannot be.
 		if ( ! is_multisite() ) {
-			$is_network_active = false;
+			$is_network_active = FALSE;
 			return $is_network_active;
 		}
 
@@ -259,11 +259,11 @@ class CiviCRM_Admin_Utilities {
 	public function is_civicrm_initialised() {
 
 		// Init only when CiviCRM is fully installed.
-		if ( ! defined( 'CIVICRM_INSTALLED' ) ) return false;
-		if ( ! CIVICRM_INSTALLED ) return false;
+		if ( ! defined( 'CIVICRM_INSTALLED' ) ) return FALSE;
+		if ( ! CIVICRM_INSTALLED ) return FALSE;
 
 		// Bail if no CiviCRM init function.
-		if ( ! function_exists( 'civi_wp' ) ) return false;
+		if ( ! function_exists( 'civi_wp' ) ) return FALSE;
 
 		// Try and initialise CiviCRM.
 		return civi_wp()->initialize();
@@ -291,13 +291,13 @@ class CiviCRM_Admin_Utilities {
 
 		// If not multisite, it cannot be.
 		if ( ! is_multisite() ) {
-			$civicrm_network_active = false;
+			$civicrm_network_active = FALSE;
 			return $civicrm_network_active;
 		}
 
 		// If CiviCRM's constant is not defined, we'll never know.
 		if ( ! defined( 'CIVICRM_PLUGIN_FILE' ) ) {
-			$civicrm_network_active = false;
+			$civicrm_network_active = FALSE;
 			return $civicrm_network_active;
 		}
 
@@ -331,11 +331,11 @@ class CiviCRM_Admin_Utilities {
 
 		// Bail if CiviCRM is not active.
 		if ( ! $this->is_civicrm_initialised() ) {
-			return false;
+			return FALSE;
 		}
 
 		// Assume not installed.
-		$installed = false;
+		$installed = FALSE;
 
 		// Query API for extension.
 		$result = civicrm_api( 'extension', 'get', array(
@@ -357,7 +357,7 @@ class CiviCRM_Admin_Utilities {
 		// Double check.
 		foreach( $result['values'] AS $extension ) {
 			if ( $extension['key'] == $full_name ) {
-				$installed = true;
+				$installed = TRUE;
 			}
 		}
 

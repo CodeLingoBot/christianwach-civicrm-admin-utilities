@@ -91,7 +91,7 @@ class CiviCRM_Admin_Utilities_Multisite {
 	public function initialise() {
 
 		// Assign installed plugin version.
-		$this->plugin_version = $this->option_get( 'civicrm_admin_utilities_version', false );
+		$this->plugin_version = $this->option_get( 'civicrm_admin_utilities_version', FALSE );
 
 		// Do upgrade tasks.
 		$this->upgrade_tasks();
@@ -143,7 +143,7 @@ class CiviCRM_Admin_Utilities_Multisite {
 	public function upgrade_tasks() {
 
 		// If this is a new install (or an upgrade from a version prior to 0.3.4).
-		if ( $this->plugin_version === false ) {
+		if ( $this->plugin_version === FALSE ) {
 
 			// Delete the legacy "installed" option.
 			$this->delete_legacy_option();
@@ -187,7 +187,7 @@ class CiviCRM_Admin_Utilities_Multisite {
 	public function upgrade_settings() {
 
 		// Don't save by default.
-		$save = false;
+		$save = FALSE;
 
 		// CSS settings may not exist.
 		if ( ! $this->setting_exists( 'css_default' ) ) {
@@ -197,7 +197,7 @@ class CiviCRM_Admin_Utilities_Multisite {
 			$this->setting_set( 'css_default', $settings['css_default'] );
 			$this->setting_set( 'css_navigation', $settings['css_navigation'] );
 			$this->setting_set( 'css_shoreditch', $settings['css_shoreditch'] );
-			$save = true;
+			$save = TRUE;
 
 		}
 
@@ -209,7 +209,7 @@ class CiviCRM_Admin_Utilities_Multisite {
 				$settings = $this->settings_get_defaults();
 			}
 			$this->setting_set( 'css_bootstrap', $settings['css_bootstrap'] );
-			$save = true;
+			$save = TRUE;
 
 		}
 
@@ -221,7 +221,7 @@ class CiviCRM_Admin_Utilities_Multisite {
 				$settings = $this->settings_get_defaults();
 			}
 			$this->setting_set( 'css_custom', $settings['css_custom'] );
-			$save = true;
+			$save = TRUE;
 
 		}
 
@@ -233,7 +233,7 @@ class CiviCRM_Admin_Utilities_Multisite {
 				$settings = $this->settings_get_defaults();
 			}
 			$this->setting_set( 'css_custom_public', $settings['css_custom_public'] );
-			$save = true;
+			$save = TRUE;
 
 		}
 
@@ -245,7 +245,7 @@ class CiviCRM_Admin_Utilities_Multisite {
 				$settings = $this->settings_get_defaults();
 			}
 			$this->setting_set( 'css_admin', $settings['css_admin'] );
-			$save = true;
+			$save = TRUE;
 
 		}
 
@@ -257,7 +257,7 @@ class CiviCRM_Admin_Utilities_Multisite {
 				$settings = $this->settings_get_defaults();
 			}
 			$this->setting_set( 'restrict_settings_access', $settings['restrict_settings_access'] );
-			$save = true;
+			$save = TRUE;
 
 		}
 
@@ -269,7 +269,7 @@ class CiviCRM_Admin_Utilities_Multisite {
 				$settings = $this->settings_get_defaults();
 			}
 			$this->setting_set( 'restrict_domain_access', $settings['restrict_domain_access'] );
-			$save = true;
+			$save = TRUE;
 
 		}
 
@@ -281,7 +281,7 @@ class CiviCRM_Admin_Utilities_Multisite {
 				$settings = $this->settings_get_defaults();
 			}
 			$this->setting_set( 'restrict_administer', $settings['restrict_administer'] );
-			$save = true;
+			$save = TRUE;
 
 		}
 
@@ -293,7 +293,7 @@ class CiviCRM_Admin_Utilities_Multisite {
 				$settings = $this->settings_get_defaults();
 			}
 			$this->setting_set( 'email_suppress', $settings['email_suppress'] );
-			$save = true;
+			$save = TRUE;
 
 		}
 
@@ -305,12 +305,12 @@ class CiviCRM_Admin_Utilities_Multisite {
 				$settings = $this->settings_get_defaults();
 			}
 			$this->setting_set( 'admin_bar_groups', $settings['admin_bar_groups'] );
-			$save = true;
+			$save = TRUE;
 
 		}
 
 		// Save settings if need be.
-		if ( $save === true ) {
+		if ( $save === TRUE ) {
 			$this->settings_save();
 		}
 
@@ -496,7 +496,7 @@ class CiviCRM_Admin_Utilities_Multisite {
 	 * @param bool $echo Whether or not to echo the url - default is true.
 	 * @return string $url The URL.
 	 */
-	public function network_menu_page_url( $menu_slug, $echo = true ) {
+	public function network_menu_page_url( $menu_slug, $echo = TRUE ) {
 
 		global $_parent_pages;
 
@@ -716,7 +716,7 @@ class CiviCRM_Admin_Utilities_Multisite {
 		 * @param bool False by default - do not show tabs.
 		 * @return bool Modified flag for whether or not to show tabs.
 		 */
-		$show_tabs = apply_filters( 'civicrm_admin_utilities_network_show_tabs', false );
+		$show_tabs = apply_filters( 'civicrm_admin_utilities_network_show_tabs', FALSE );
 
 		// Include template.
 		include( CIVICRM_ADMIN_UTILITIES_PATH . 'assets/templates/network-settings.php' );
@@ -736,7 +736,7 @@ class CiviCRM_Admin_Utilities_Multisite {
 		wp_enqueue_style(
 			'civicrm_admin_utilities_network_settings_css',
 			plugins_url( 'assets/css/civicrm-admin-utilities-network-settings.css', CIVICRM_ADMIN_UTILITIES_FILE ),
-			false,
+			FALSE,
 			CIVICRM_ADMIN_UTILITIES_VERSION, // version
 			'all' // media
 		);
@@ -782,7 +782,7 @@ class CiviCRM_Admin_Utilities_Multisite {
 		$this->network_urls = array();
 
 		// Get admin page URLs via our adapted method.
-		$this->network_urls['settings'] = $this->network_menu_page_url( 'civicrm_admin_utilities_network_settings', false );
+		$this->network_urls['settings'] = $this->network_menu_page_url( 'civicrm_admin_utilities_network_settings', FALSE );
 
 		/**
 		 * Filter the list of network URLs.
@@ -1002,12 +1002,12 @@ class CiviCRM_Admin_Utilities_Multisite {
 	public function site_admin_has_plugins_menu_access() {
 
 		// Init return
-		$granted = false;
+		$granted = FALSE;
 
 		// Override if individual Site Admins can see the "Plugins" menu.
 		$menu_perms = get_site_option( 'menu_items', array() );
 		if ( ! empty( $menu_perms['plugins'] ) ) {
-			$granted = true;
+			$granted = TRUE;
 		}
 
 		// --<
@@ -1136,7 +1136,7 @@ class CiviCRM_Admin_Utilities_Multisite {
 	public function settings_update_router() {
 
 		// Init return.
-		$result = false;
+		$result = FALSE;
 
 		// Was the "Network Settings" form submitted?
 		if ( isset( $_POST['civicrm_admin_utilities_network_settings_submit'] ) ) {
@@ -1318,7 +1318,7 @@ class CiviCRM_Admin_Utilities_Multisite {
 		$this->settings_save();
 
 		// --<
-		return true;
+		return TRUE;
 
 	}
 
@@ -1378,7 +1378,7 @@ class CiviCRM_Admin_Utilities_Multisite {
 	 * @param mixed $default The default value if the setting does not exist.
 	 * @return mixed The setting or the default.
 	 */
-	public function setting_get( $setting_name = '', $default = false ) {
+	public function setting_get( $setting_name = '', $default = FALSE ) {
 
 		// Test for empty.
 		if ( $setting_name == '' ) {
@@ -1464,9 +1464,9 @@ class CiviCRM_Admin_Utilities_Multisite {
 
 		// Test by getting option with unlikely default.
 		if ( $this->option_get( $option_name, 'fenfgehgefdfdjgrkj' ) == 'fenfgehgefdfdjgrkj' ) {
-			return false;
+			return FALSE;
 		} else {
-			return true;
+			return TRUE;
 		}
 
 	}
@@ -1483,7 +1483,7 @@ class CiviCRM_Admin_Utilities_Multisite {
 	 * @param str $default The default value of the option if it has no value.
 	 * @return mixed $value the value of the option.
 	 */
-	public function option_get( $option_name = '', $default = false ) {
+	public function option_get( $option_name = '', $default = FALSE ) {
 
 		// Test for empty.
 		if ( $option_name == '' ) {
