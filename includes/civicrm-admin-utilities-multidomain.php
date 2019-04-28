@@ -259,9 +259,9 @@ class CiviCRM_Admin_Utilities_Multidomain {
 		$domains = $this->domains_get();
 
 		// Check if "CiviCRM Multisite" extension is active.
-		$multisite = false;
+		$multisite = FALSE;
 		if ( $this->plugin->is_extension_enabled( 'org.civicrm.multisite' ) ) {
-			$multisite = true;
+			$multisite = TRUE;
 		}
 
 		// Include template file.
@@ -282,7 +282,7 @@ class CiviCRM_Admin_Utilities_Multidomain {
 		wp_enqueue_style(
 			'civicrm_admin_utilities_network_multidomain_css',
 			plugins_url( 'assets/css/civicrm-admin-utilities-network-multidomain.css', CIVICRM_ADMIN_UTILITIES_FILE ),
-			false,
+			FALSE,
 			CIVICRM_ADMIN_UTILITIES_VERSION, // version
 			'all' // media
 		);
@@ -321,7 +321,7 @@ class CiviCRM_Admin_Utilities_Multidomain {
 	public function page_network_urls_filter( $urls ) {
 
 		// Add multidomain settings page.
-		$urls['multidomain'] = $this->plugin->multisite->network_menu_page_url( 'civicrm_admin_utilities_network_multidomain', false );
+		$urls['multidomain'] = $this->plugin->multisite->network_menu_page_url( 'civicrm_admin_utilities_network_multidomain', FALSE );
 
 		// --<
 		return $urls;
@@ -341,7 +341,7 @@ class CiviCRM_Admin_Utilities_Multidomain {
 	public function page_network_show_tabs( $show_tabs ) {
 
 		// Always show tabs.
-		$show_tabs = true;
+		$show_tabs = TRUE;
 
 		// --<
 		return $show_tabs;
@@ -573,9 +573,9 @@ class CiviCRM_Admin_Utilities_Multidomain {
 		$domain_org = $this->domain_org_get();
 
 		// Check if "CiviCRM Multisite" extension is active.
-		$multisite = false;
+		$multisite = FALSE;
 		if ( $this->plugin->is_extension_enabled( 'org.civicrm.multisite' ) ) {
-			$multisite = true;
+			$multisite = TRUE;
 		}
 
 		// Check if "Multisite" is enabled for this Domain.
@@ -616,7 +616,7 @@ class CiviCRM_Admin_Utilities_Multidomain {
 		wp_enqueue_style(
 			'cau_site_domain_css',
 			plugins_url( 'assets/css/civicrm-admin-utilities-site-multidomain.css', CIVICRM_ADMIN_UTILITIES_FILE ),
-			false,
+			FALSE,
 			CIVICRM_ADMIN_UTILITIES_VERSION, // version
 			'all' // media
 		);
@@ -681,7 +681,7 @@ class CiviCRM_Admin_Utilities_Multidomain {
 	public function page_urls_filter( $urls ) {
 
 		// Add multidomain settings page.
-		$urls['multidomain'] = menu_page_url( 'civicrm_admin_utilities_multidomain', false );
+		$urls['multidomain'] = menu_page_url( 'civicrm_admin_utilities_multidomain', FALSE );
 
 		// --<
 		return $urls;
@@ -701,7 +701,7 @@ class CiviCRM_Admin_Utilities_Multidomain {
 	public function page_show_tabs( $show_tabs ) {
 
 		// Always show tabs.
-		$show_tabs = true;
+		$show_tabs = TRUE;
 
 		// --<
 		return $show_tabs;
@@ -778,7 +778,7 @@ class CiviCRM_Admin_Utilities_Multidomain {
 	public function settings_update_router() {
 
 		// Init return.
-		$result = false;
+		$result = FALSE;
 
 	 	// Was the "Domain" form submitted?
 		if ( isset( $_POST['civicrm_admin_utilities_multidomain_submit'] ) ) {
@@ -813,7 +813,7 @@ class CiviCRM_Admin_Utilities_Multidomain {
 		$domain_name = isset( $_POST['cau_domain_name'] ) ? sanitize_text_field( $_POST['cau_domain_name'] ) : '';
 
 		// Bail if we get nothing through.
-		if ( empty( $domain_name ) ) return false;
+		if ( empty( $domain_name ) ) return FALSE;
 
 		// Okay, create domain.
 		$result = $this->domain_create( $domain_name );
@@ -826,11 +826,11 @@ class CiviCRM_Admin_Utilities_Multidomain {
 				'method' => __METHOD__,
 				'result' => $result,
 				'backtrace' => $trace,
-			), true ) );
+			), TRUE ) );
 		}
 
 		// --<
-		return true;
+		return TRUE;
 
 	}
 
@@ -859,7 +859,7 @@ class CiviCRM_Admin_Utilities_Multidomain {
 		$this->domain_group_set( $domain_group_id );
 
 		// --<
-		return true;
+		return TRUE;
 
 	}
 
@@ -1298,12 +1298,12 @@ class CiviCRM_Admin_Utilities_Multidomain {
 
 		// Bail if CiviCRM is not active.
 		if ( ! $this->plugin->is_civicrm_initialised() ) {
-			return false;
+			return FALSE;
 		}
 
 		// Sanity check.
 		if ( $group_id === 0 OR ! is_numeric( $group_id ) ) {
-			return false;
+			return FALSE;
 		}
 
 		// Get domain data.
@@ -1311,7 +1311,7 @@ class CiviCRM_Admin_Utilities_Multidomain {
 
 		// Bail if we don't have a domain.
 		if ( $domain['id'] === 0 ) {
-			return false;
+			return FALSE;
 		}
 
 		// Get existing Domain Group data.
@@ -1343,7 +1343,7 @@ class CiviCRM_Admin_Utilities_Multidomain {
 					'method' => __METHOD__,
 					'result' => $result,
 					'backtrace' => $trace,
-				), true ) );
+				), TRUE ) );
 			}
 
 		}
@@ -1550,12 +1550,12 @@ class CiviCRM_Admin_Utilities_Multidomain {
 
 		// Bail if CiviCRM is not active.
 		if ( ! $this->plugin->is_civicrm_initialised() ) {
-			return false;
+			return FALSE;
 		}
 
 		// Sanity check.
 		if ( $org_id === 0 OR ! is_numeric( $org_id ) ) {
-			return false;
+			return FALSE;
 		}
 
 		// Get domain data.
@@ -1563,7 +1563,7 @@ class CiviCRM_Admin_Utilities_Multidomain {
 
 		// Bail if we don't have a domain.
 		if ( $domain['id'] === 0 ) {
-			return false;
+			return FALSE;
 		}
 
 		// Bail if there's no change.

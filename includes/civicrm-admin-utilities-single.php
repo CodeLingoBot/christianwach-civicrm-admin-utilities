@@ -83,7 +83,7 @@ class CiviCRM_Admin_Utilities_Single {
 	public function initialise() {
 
 		// Assign installed plugin version.
-		$this->plugin_version = $this->option_get( 'civicrm_admin_utilities_version', false );
+		$this->plugin_version = $this->option_get( 'civicrm_admin_utilities_version', FALSE );
 
 		// Do upgrade tasks.
 		$this->upgrade_tasks();
@@ -135,7 +135,7 @@ class CiviCRM_Admin_Utilities_Single {
 	public function upgrade_tasks() {
 
 		// If this is a new install (or an upgrade from a version prior to 0.3.4).
-		if ( $this->plugin_version === false ) {
+		if ( $this->plugin_version === FALSE ) {
 
 			// Delete the legacy "installed" option.
 			$this->delete_legacy_option();
@@ -179,7 +179,7 @@ class CiviCRM_Admin_Utilities_Single {
 	public function upgrade_settings() {
 
 		// Don't save by default.
-		$save = false;
+		$save = FALSE;
 
 		// CSS settings may not exist.
 		if ( ! $this->setting_exists( 'css_default' ) ) {
@@ -189,7 +189,7 @@ class CiviCRM_Admin_Utilities_Single {
 			$this->setting_set( 'css_default', $settings['css_default'] );
 			$this->setting_set( 'css_navigation', $settings['css_navigation'] );
 			$this->setting_set( 'css_shoreditch', $settings['css_shoreditch'] );
-			$save = true;
+			$save = TRUE;
 
 		}
 
@@ -201,7 +201,7 @@ class CiviCRM_Admin_Utilities_Single {
 				$settings = $this->settings_get_defaults();
 			}
 			$this->setting_set( 'css_bootstrap', $settings['css_bootstrap'] );
-			$save = true;
+			$save = TRUE;
 
 		}
 
@@ -213,7 +213,7 @@ class CiviCRM_Admin_Utilities_Single {
 				$settings = $this->settings_get_defaults();
 			}
 			$this->setting_set( 'css_custom', $settings['css_custom'] );
-			$save = true;
+			$save = TRUE;
 
 		}
 
@@ -225,7 +225,7 @@ class CiviCRM_Admin_Utilities_Single {
 				$settings = $this->settings_get_defaults();
 			}
 			$this->setting_set( 'css_custom_public', $settings['css_custom_public'] );
-			$save = true;
+			$save = TRUE;
 
 		}
 
@@ -237,7 +237,7 @@ class CiviCRM_Admin_Utilities_Single {
 				$settings = $this->settings_get_defaults();
 			}
 			$this->setting_set( 'css_admin', $settings['css_admin'] );
-			$save = true;
+			$save = TRUE;
 
 		}
 
@@ -249,7 +249,7 @@ class CiviCRM_Admin_Utilities_Single {
 				$settings = $this->settings_get_defaults();
 			}
 			$this->setting_set( 'email_suppress', $settings['email_suppress'] );
-			$save = true;
+			$save = TRUE;
 
 		}
 
@@ -261,12 +261,12 @@ class CiviCRM_Admin_Utilities_Single {
 				$settings = $this->settings_get_defaults();
 			}
 			$this->setting_set( 'admin_bar_groups', $settings['admin_bar_groups'] );
-			$save = true;
+			$save = TRUE;
 
 		}
 
 		// Save settings if need be.
-		if ( $save === true ) {
+		if ( $save === TRUE ) {
 			$this->settings_save();
 		}
 
@@ -314,7 +314,7 @@ class CiviCRM_Admin_Utilities_Single {
 		add_filter( 'send_email_change_email', array( $this, 'email_suppress' ), 10, 3 );
 
 		// If the debugging flag is set.
-		if ( CIVICRM_ADMIN_UTILITIES_DEBUG === true ) {
+		if ( CIVICRM_ADMIN_UTILITIES_DEBUG === TRUE ) {
 
 			// Log pre and post database operations.
 			add_action( 'civicrm_pre', array( $this, 'trace_pre' ), 10, 4 );
@@ -371,7 +371,7 @@ class CiviCRM_Admin_Utilities_Single {
 		$contact_id = $this->contact_id_get_by_user_id( $user->ID );
 
 		// Bail if we don't get one for some reason.
-		if ( $contact_id === false ) return;
+		if ( $contact_id === FALSE ) return;
 
 		// Get the link to the Contact.
 		$link = $this->get_link( 'civicrm/contact/view', 'reset=1&cid=' . $contact_id );
@@ -405,7 +405,7 @@ class CiviCRM_Admin_Utilities_Single {
 		if ( ! isset( $objectRef['email'] ) ) return;
 
 		// Set a property to check in `email_suppress()` below.
-		$this->email_sync = true;
+		$this->email_sync = TRUE;
 
 	}
 
@@ -426,13 +426,13 @@ class CiviCRM_Admin_Utilities_Single {
 		if ( $this->setting_get( 'email_suppress', '0' ) == '0' ) return $send;
 
 		// Did this change originate with CiviCRM?
-		if ( isset( $this->email_sync ) AND $this->email_sync === true ) {
+		if ( isset( $this->email_sync ) AND $this->email_sync === TRUE ) {
 
 			// Unset property.
 			unset( $this->email_sync );
 
 			// Do not notify.
-			$send = false;
+			$send = FALSE;
 
 		}
 
@@ -673,7 +673,7 @@ class CiviCRM_Admin_Utilities_Single {
 		if ( $this->shoreditch_is_active() ) {
 
 			// Set flag.
-			$shoreditch = true;
+			$shoreditch = TRUE;
 
 			// Init Shoreditch CSS checkbox.
 			$shoreditch_css = '';
@@ -690,7 +690,7 @@ class CiviCRM_Admin_Utilities_Single {
 		} else {
 
 			// Set flag.
-			$shoreditch = false;
+			$shoreditch = FALSE;
 
 			// Init custom CSS checkbox.
 			$custom_css = '';
@@ -713,13 +713,13 @@ class CiviCRM_Admin_Utilities_Single {
 		}
 
 		// Assume access form has been fixed.
-		$access_form_fixed = true;
+		$access_form_fixed = TRUE;
 
 		// If CiviCRM has not been fixed.
 		if ( ! $this->access_form_fixed() ) {
 
 			// Set flag.
-			$access_form_fixed = false;
+			$access_form_fixed = FALSE;
 
 			// Init access form checkbox.
 			$prettify_access = '';
@@ -745,11 +745,11 @@ class CiviCRM_Admin_Utilities_Single {
 		$options = $this->post_type_options_get();
 
 		// Init administer CiviCRM flag.
-		$administer_civicrm = false;
+		$administer_civicrm = FALSE;
 
 		// Override if this user can administer CiviCRM.
 		if ( $this->check_permission( 'administer CiviCRM' ) ) {
-			$administer_civicrm = true;
+			$administer_civicrm = TRUE;
 		}
 
 		/**
@@ -760,7 +760,7 @@ class CiviCRM_Admin_Utilities_Single {
 		 * @param bool False by default - do not show tabs.
 		 * @return bool Modified flag for whether or not to show tabs.
 		 */
-		$show_tabs = apply_filters( 'civicrm_admin_utilities_show_tabs', false );
+		$show_tabs = apply_filters( 'civicrm_admin_utilities_show_tabs', FALSE );
 
 		// Include template.
 		include( CIVICRM_ADMIN_UTILITIES_PATH . 'assets/templates/site-settings.php' );
@@ -787,7 +787,7 @@ class CiviCRM_Admin_Utilities_Single {
 		$this->urls = array();
 
 		// Get admin page URLs.
-		$this->urls['settings'] = menu_page_url( 'civicrm_admin_utilities_settings', false );
+		$this->urls['settings'] = menu_page_url( 'civicrm_admin_utilities_settings', FALSE );
 
 		/**
 		 * Filter the list of URLs.
@@ -824,8 +824,8 @@ class CiviCRM_Admin_Utilities_Single {
 
 		// Get CPTs with admin UI.
 		$args = array(
-			'public'   => true,
-			'show_ui' => true,
+			'public'   => TRUE,
+			'show_ui' => TRUE,
 		);
 
 		$output = 'objects'; // Names or objects, note names is the default.
@@ -912,7 +912,7 @@ class CiviCRM_Admin_Utilities_Single {
 	public function access_form_fixed() {
 
 		// Always true if already fixed in CiviCRM.
-		if ( $this->setting_get( 'access_fixed', '0' ) == '1' ) return true;
+		if ( $this->setting_get( 'access_fixed', '0' ) == '1' ) return TRUE;
 
 		// Avoid recalculation.
 		if ( isset( $this->fixed ) ) {
@@ -923,12 +923,12 @@ class CiviCRM_Admin_Utilities_Single {
 		if ( ! $this->plugin->is_civicrm_initialised() ) {
 			$this->setting_set( 'access_fixed', '1' );
 			$this->settings_save();
-			$this->fixed = true;
+			$this->fixed = TRUE;
 			return $this->fixed;
 		}
 
 		// Init property.
-		$this->fixed = false;
+		$this->fixed = FALSE;
 
 		// Get current version.
 		$version = CRM_Utils_System::version();
@@ -941,7 +941,7 @@ class CiviCRM_Admin_Utilities_Single {
 		if ( version_compare( $major_version, '4.6', '=' ) ) {
 			//if ( version_compare( $version, '4.6.38', '>=' ) ) $this->fixed = true;
 		} else {
-			if ( version_compare( $version, '4.7.30', '>=' ) ) $this->fixed = true;
+			if ( version_compare( $version, '4.7.30', '>=' ) ) $this->fixed = TRUE;
 		}
 
 		// Save setting if fixed.
@@ -1101,7 +1101,7 @@ class CiviCRM_Admin_Utilities_Single {
 			wp_enqueue_style(
 				'civicrm_admin_utilities_admin_tweaks',
 				plugins_url( 'assets/css/' . $css, CIVICRM_ADMIN_UTILITIES_FILE ),
-				null,
+				NULL,
 				CIVICRM_ADMIN_UTILITIES_VERSION, // Version.
 				'all' // Media.
 			);
@@ -1115,7 +1115,7 @@ class CiviCRM_Admin_Utilities_Single {
 			wp_enqueue_style(
 				'civicrm_admin_utilities_admin_override',
 				plugins_url( 'assets/css/civicrm-admin-utilities-admin.css', CIVICRM_ADMIN_UTILITIES_FILE ),
-				null,
+				NULL,
 				CIVICRM_ADMIN_UTILITIES_VERSION, // Version.
 				'all' // Media.
 			);
@@ -1228,7 +1228,7 @@ class CiviCRM_Admin_Utilities_Single {
 		$url = $this->resource_get_url( $extension, $file );
 
 		// Kick out if not enqueued.
-		if ( $url === false ) return;
+		if ( $url === FALSE ) return;
 
 		// Set to disabled.
 		CRM_Core_Region::instance('html-header')->update( $url, array( 'disabled' => TRUE ) );
@@ -1250,7 +1250,7 @@ class CiviCRM_Admin_Utilities_Single {
 	public function resource_get_url( $extension = 'civicrm', $file = 'css/civicrm.css' ) {
 
 		// Kick out if no CiviCRM.
-		if ( ! $this->plugin->is_civicrm_initialised() ) return false;
+		if ( ! $this->plugin->is_civicrm_initialised() ) return FALSE;
 
 		// Get registered URL.
 		$url = CRM_Core_Resources::singleton()->getUrl( $extension, $file, TRUE );
@@ -1259,7 +1259,7 @@ class CiviCRM_Admin_Utilities_Single {
 		$registration = CRM_Core_Region::instance( 'html-header' )->get( $url );
 
 		// Bail if not registered.
-		if ( empty( $registration ) ) return false;
+		if ( empty( $registration ) ) return FALSE;
 
 		// Is enqueued.
 		return $url;
@@ -1312,7 +1312,7 @@ class CiviCRM_Admin_Utilities_Single {
 	public function shoreditch_is_active() {
 
 		// Assume not.
-		$shoreditch = false;
+		$shoreditch = FALSE;
 
 		// Init CiviCRM.
 		if ( ! $this->plugin->is_civicrm_initialised() ) return $shoreditch;
@@ -1321,10 +1321,10 @@ class CiviCRM_Admin_Utilities_Single {
 		$config = CRM_Core_Config::singleton();
 
 		// Has the Shoreditch CSS been activated?
-		if ( strstr( $config->customCSSURL, 'org.civicrm.shoreditch' ) !== false ) {
+		if ( strstr( $config->customCSSURL, 'org.civicrm.shoreditch' ) !== FALSE ) {
 
 			// Shoreditch CSS is active.
-			$shoreditch = true;
+			$shoreditch = TRUE;
 
 		}
 
@@ -1362,16 +1362,16 @@ class CiviCRM_Admin_Utilities_Single {
 
 		// KAM is included in core from 5.12 onwards.
 		if ( version_compare( $version, '5.12', '>=' ) ) {
-			return true;
+			return TRUE;
 		}
 
 		// Kick out if no KAM function.
 		if ( ! function_exists( 'kam_civicrm_coreResourceList' ) ) {
-			return false;
+			return FALSE;
 		}
 
 		// KAM must be present.
-		return true;
+		return TRUE;
 
 	}
 
@@ -1546,7 +1546,7 @@ class CiviCRM_Admin_Utilities_Single {
 		 * @param bool True allows access by default.
 		 * @return bool Modified access flag - return boolean "false" to deny.
 		 */
-		$allowed = apply_filters( 'civicrm_admin_utilities_manage_groups_menu_item', true );
+		$allowed = apply_filters( 'civicrm_admin_utilities_manage_groups_menu_item', TRUE );
 
 		// Groups.
 		if ( $allowed ) {
@@ -1682,7 +1682,7 @@ class CiviCRM_Admin_Utilities_Single {
 	 * @param str $params The CiviCRM parameters.
 	 * @return string $link The URL of the CiviCRM page.
 	 */
-	public function get_link( $path = '', $params = null ) {
+	public function get_link( $path = '', $params = NULL ) {
 
 		// Init link.
 		$link = '';
@@ -1720,14 +1720,14 @@ class CiviCRM_Admin_Utilities_Single {
 	public function check_permission( $permission ) {
 
 		// Always deny if CiviCRM is not active.
-		if ( ! $this->plugin->is_civicrm_initialised() ) return false;
+		if ( ! $this->plugin->is_civicrm_initialised() ) return FALSE;
 
 		// Deny by default.
-		$permitted = false;
+		$permitted = FALSE;
 
 		// Check CiviCRM permissions.
 		if ( CRM_Core_Permission::check( $permission ) ) {
-			$permitted = true;
+			$permitted = TRUE;
 		}
 
 		/**
@@ -1757,7 +1757,7 @@ class CiviCRM_Admin_Utilities_Single {
 
 		// Bail if no CiviCRM.
 		if ( ! $this->plugin->is_civicrm_initialised() ) {
-			return false;
+			return FALSE;
 		}
 
 		// Make sure CiviCRM file is included.
@@ -1768,7 +1768,7 @@ class CiviCRM_Admin_Utilities_Single {
 
 		// Cast contact ID as boolean if we didn't get one.
 		if ( empty( $contact_id ) ) {
-			$contact_id = false;
+			$contact_id = FALSE;
 		}
 
 		// --<
@@ -1866,7 +1866,7 @@ class CiviCRM_Admin_Utilities_Single {
 			'objectId' => $objectId,
 			'objectRef' => $objectRef,
 			'backtrace' => $trace,
-		), true ) );
+		), TRUE ) );
 
 	}
 
@@ -1893,7 +1893,7 @@ class CiviCRM_Admin_Utilities_Single {
 			'objectId' => $objectId,
 			'objectRef' => $objectRef,
 			'backtrace' => $trace,
-		), true ) );
+		), TRUE ) );
 
 	}
 
@@ -1916,7 +1916,7 @@ class CiviCRM_Admin_Utilities_Single {
 			'formName' => $formName,
 			'form' => $form,
 			'backtrace' => $trace,
-		), true ) );
+		), TRUE ) );
 
 	}
 
@@ -2000,7 +2000,7 @@ class CiviCRM_Admin_Utilities_Single {
 	public function settings_update_router() {
 
 		// Init return.
-		$result = false;
+		$result = FALSE;
 
 		// was the "Settings" form submitted?
 		if ( isset( $_POST['civicrm_admin_utilities_settings_submit'] ) ) {
@@ -2047,12 +2047,12 @@ class CiviCRM_Admin_Utilities_Single {
 		extract( $_POST );
 
 		// Init force cache-clearing flag.
-		$force = false;
+		$force = FALSE;
 
 		// Get existing menu setting.
 		$existing_menu = $this->setting_get( 'prettify_menu', '0' );
 		if ( $civicrm_admin_utilities_menu != $existing_menu ) {
-			$force = true;
+			$force = TRUE;
 		}
 
 		// Did we ask to prettify the menu?
@@ -2121,7 +2121,7 @@ class CiviCRM_Admin_Utilities_Single {
 		// Get existing access setting.
 		$existing_access = $this->setting_get( 'prettify_access', '0' );
 		if ( $civicrm_admin_utilities_access != $existing_access ) {
-			$force = true;
+			$force = TRUE;
 		}
 
 		// Did we ask to fix the access form?
@@ -2172,7 +2172,7 @@ class CiviCRM_Admin_Utilities_Single {
 		}
 
 		// --<
-		return true;
+		return TRUE;
 
 	}
 
@@ -2232,7 +2232,7 @@ class CiviCRM_Admin_Utilities_Single {
 	 * @param mixed $default The default value if the setting does not exist.
 	 * @return mixed The setting or the default.
 	 */
-	public function setting_get( $setting_name = '', $default = false ) {
+	public function setting_get( $setting_name = '', $default = FALSE ) {
 
 		// Test for empty.
 		if ( $setting_name == '' ) {
@@ -2318,9 +2318,9 @@ class CiviCRM_Admin_Utilities_Single {
 
 		// Test by getting option with unlikely default.
 		if ( $this->option_get( $option_name, 'fenfgehgefdfdjgrkj' ) == 'fenfgehgefdfdjgrkj' ) {
-			return false;
+			return FALSE;
 		} else {
-			return true;
+			return TRUE;
 		}
 
 	}
@@ -2337,7 +2337,7 @@ class CiviCRM_Admin_Utilities_Single {
 	 * @param str $default The default value of the option if it has no value.
 	 * @return mixed $value the value of the option.
 	 */
-	public function option_get( $option_name = '', $default = false ) {
+	public function option_get( $option_name = '', $default = FALSE ) {
 
 		// Test for empty.
 		if ( $option_name == '' ) {
