@@ -105,7 +105,7 @@
 				</td>
 			</tr>
 
-			<?php if ( $shoreditch === false ) : ?>
+			<?php if ( $shoreditch === FALSE ) : ?>
 
 				<tr>
 					<th scope="row"><?php _e( 'Custom Stylesheet on Public Pages', 'civicrm-admin-utilities' ); ?></th>
@@ -165,7 +165,7 @@
 
 		<hr />
 
-		<?php if ( $access_form_fixed === false ) : ?>
+		<?php if ( $access_form_fixed === FALSE ) : ?>
 
 			<h3><?php _e( 'Fix WordPress Access Control form', 'civicrm-admin-utilities' ); ?></h3>
 
